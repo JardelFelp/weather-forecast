@@ -1,6 +1,13 @@
 import { combineReducers } from 'redux'
-import { reducer as example } from './duckExample'
+import { reducer as weatherForecast } from './duckWeatherForecast'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+
+const weatherForecastPersistConfig = {
+  key: 'weather-forecast',
+  storage
+}
 
 export default combineReducers({
-  example
+  weatherForecast: persistReducer(weatherForecastPersistConfig, weatherForecast)
 })

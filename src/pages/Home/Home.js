@@ -2,17 +2,20 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
 const Home = () => {
-  const number = useSelector(({ example }) => example.number);
+  const coordinates = useSelector(({ weatherForecast }) => weatherForecast.coordinates);
+  const teste = useSelector(({ weatherForecast }) => weatherForecast.weatherForecast);
   const dispatch = useDispatch();
 
+  console.log(coordinates, teste);
+
   useEffect(() => {
-    dispatch({ type: 'SAY_HELLO' });
-    dispatch({ type: 'SET_NUMBER', number: 3 });
+    dispatch({ type: 'SEARCH_WEATHER_FORECAST' });
   }, [])
 
   return (
     <div>
-      Home { number }
+      Home
+      {/* Home { number } */}
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import { all, takeEvery } from 'redux-saga/effects'
+/* Weather Forecast */
+import { WeatherForecastType } from 'store/ducks/duckWeatherForecast'
+import { searchWeatherForecast } from './sagaWeatherForecast'
 
-import { ExampleType } from 'store/ducks/duckExample'
-import { sayHello } from './sagaExample'
-
-const exampleLinks = [takeEvery(ExampleType.SAY_HELLO, sayHello)]
+const weatherForecastLinks = [
+  takeEvery(WeatherForecastType.SEARCH_WEATHER_FORECAST, searchWeatherForecast)
+]
 
 export default function* rootSaga() {
-  yield all([...exampleLinks])
+  yield all([...weatherForecastLinks])
 }
