@@ -16,9 +16,9 @@ export function* searchWeatherForecast() {
 
   const diference = moment().diff(moment(datetimeLastSearch), 'minutes');
 
-  if (diference >= TIME_TO_RESEARCH) {
+  if (datetimeLastSearch === null || diference >= TIME_TO_RESEARCH) {
     const { latitude, longitude } = yield select(getCoordinates)
-    const { data: response } = yield axios.get(`/forecast/${API_KEY}/${latitude},${longitude}?lang=pt`)
+    const { data: response } = yield axios.get(`/forecast/${API_KEY}/${latitude},${longitude}?lang=pt&units=si`)
   
     yield put({ 
       type: WeatherForecastType.SET_WEATHER_FORECAST, 

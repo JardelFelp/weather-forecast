@@ -1,23 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+/* Molecules */
+import LocationAndTemperature from 'components/molecules/LocationAndTemperature'
+import CurrentMeasurements from 'components/molecules/CurrentMeasurements'
+/* Organisms */
+import DailyForecast from 'components/organisms/DailyForecast'
+/* Templates */
+import applyDefaultTemplate from 'components/templates/DefaultTemplate'
 
 const Home = () => {
-  const coordinates = useSelector(({ weatherForecast }) => weatherForecast.coordinates);
-  const teste = useSelector(({ weatherForecast }) => weatherForecast.weatherForecast);
   const dispatch = useDispatch();
-
-  console.log(coordinates, teste);
+  const weatherForecast = useSelector(
+    ({ weatherForecast: state }) => state.weatherForecast
+  );
+  const { currently, daily } = weatherForecast;
 
   useEffect(() => {
     dispatch({ type: 'SEARCH_WEATHER_FORECAST' });
-  }, [])
+  }, [dispatch])
+
+  if (!(weatherForecast && currently && daily)) {
+    return null;
+  }
 
   return (
     <div>
-      Home
-      {/* Home { number } */}
+      <LocationAndTemperature
+        location={'Nova Iorque'}
+        temperature={currently.temperature}
+        summary={currently.summary}
+      />
+      <CurrentMeasurements
+        humidity={currently.humidity}
+        windSpeed={currently.windSpeed}
+      />
+      <DailyForecast
+        data={daily.data}
+      />
     </div>
   );
 }
 
-export default Home;
+export default applyDefaultTemplate(Home);
