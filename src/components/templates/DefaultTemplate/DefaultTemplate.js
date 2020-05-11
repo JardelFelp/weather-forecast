@@ -23,7 +23,7 @@ const applyDefaultTemplate = Component => {
   const hour = Number(moment().format('H'));
   const classBackground = classNames({
     night: hour >= 18 || hour < 6,
-    day: hour <= 6 && hour < 18,
+    day: hour >= 6 && hour < 18,
   })
 
   return props => (
